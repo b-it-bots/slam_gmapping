@@ -29,18 +29,19 @@
 
 /* Author: Brian Gerkey */
 
-#include <ros/ros.h>
+#include "rclcpp/rclcpp.hpp"
 
 #include "slam_gmapping.h"
 
 int
 main(int argc, char** argv)
 {
-  ros::init(argc, argv, "slam_gmapping");
+  rclcpp::init(argc, argv);
+  auto node = std::make_shared<SlamGMapping>();
 
-  SlamGMapping gn;
-  gn.startLiveSlam();
-  ros::spin();
+  node->startLiveSlam();
+  rclcpp::spin(node);
+  rclcpp::shutdown();
 
   return(0);
 }
